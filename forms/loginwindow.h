@@ -18,6 +18,8 @@ public:
 private slots:
     void on_CancelButton_clicked();
 
+    void on_RegisterButton_clicked();
+
 private:
     Ui::LoginWindow *ui;
 };

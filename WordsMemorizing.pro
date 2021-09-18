@@ -16,20 +16,34 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    loginwindow.cpp \
+    class_def/usermanager.cpp \
+    class_def/vocabulary.cpp \
+    global_variate.cpp \
     main.cpp \
-    mainwindow.cpp
+    forms\mainwindow.cpp \
+    forms\loginwindow.cpp \
+    forms\registerwindow.cpp \
+    sha1\sha1.cpp \
+    class_def\user.cpp
+
 
 HEADERS += \
-    loginwindow.h \
-    mainwindow.h
+    class_def/usermanager.h \
+    class_def/vocabulary.h \
+    forms\mainwindow.h \
+    forms\loginwindow.h \
+    forms\registerwindow.h \
+    global_variate.h \
+    sha1\sha1.h \
+    class_def\user.h
 
 FORMS += \
-    loginwindow.ui \
-    mainwindow.ui
+    forms_ui\loginwindow.ui \
+    forms_ui\mainwindow.ui \
+    forms_ui\registerwindow.ui
 
 TRANSLATIONS += \
-    WordsMemorizing_zh_CN.ts
+    translations\WordsMemorizing_zh_CN.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
