@@ -54,3 +54,13 @@ bool UserManager::tryregister(User input_user)
     this->user_list.push_back(input_user);
     return true;
 }
+
+bool UserManager::islogin()
+{
+    return login;
+}
+
+User UserManager::get_current_user()
+{
+    return current_user;
+}

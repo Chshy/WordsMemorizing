@@ -25,6 +25,8 @@ public:
     bool trylogin(User input_user);
     void logout();
     bool tryregister(User input_user);
+    bool islogin();
+    User get_current_user();
 };
 
 #endif

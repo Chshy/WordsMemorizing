@@ -20,6 +20,8 @@ public:
 private slots:
     void on_LoginRegisterButton_clicked();
 
+    void on_UserQuitButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
