@@ -5,6 +5,10 @@
 #include "global_variate.h"
 #include "loginwindow.h"
 
+#include <string>
+
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -17,6 +21,39 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//登录状态显示切换函数
+//2021/09/20
+void MainWindow::set_ui_login_state()
+{
+    bool is_login = User_Manager.islogin();
+    QString qstr_login_state;
+    if(is_login)//登录了
+    {
+        qstr_login_state = QString::fromStdString(User_Manager.get_current_user().username);
+    }
+    else//没登录
+    {
+        qstr_login_state = "未登录";
+        
+    }
+
+    ui->LoginRegisterButton->setDisabled(is_login);
+
+    ui->UserQuitButton->setDisabled(!is_login);
+    ui->TodaySignInButton->setDisabled(!is_login);
+    ui->UserSettingButton->setDisabled(!is_login);
+
+
+
+
+
+
+
+    ui -> CurrentUserDisplay -> setText(qstr_login_state);
+    
+
+
+}
 
 void MainWindow::on_LoginRegisterButton_clicked()
 {
@@ -27,19 +64,21 @@ void MainWindow::on_LoginRegisterButton_clicked()
     this->hide();
     loginw.exec();
     this->show();
-    if(User_Manager.islogin())
-    {
-        qstr_login_state = QString::fromStdString(User_Manager.get_current_user().username);
-        ui->LoginRegisterButton->setDisabled(true);
-        ui->UserQuitButton->setDisabled(false);
-    }
-    else
-    {
-        qstr_login_state = "未登录";
-        ui->LoginRegisterButton->setDisabled(false);
-        ui->UserQuitButton->setDisabled(true);
-    }
-    ui -> CurrentUserDisplay -> setText(qstr_login_state);
+
+    set_ui_login_state();
+    // if(User_Manager.islogin())
+    // {
+    //     qstr_login_state = QString::fromStdString(User_Manager.get_current_user().username);
+    //     ui->LoginRegisterButton->setDisabled(true);
+    //     ui->UserQuitButton->setDisabled(false);
+    // }
+    // else
+    // {
+    //     qstr_login_state = "未登录";
+    //     ui->LoginRegisterButton->setDisabled(false);
+    //     ui->UserQuitButton->setDisabled(true);
+    // }
+    // ui -> CurrentUserDisplay -> setText(qstr_login_state);
 }
 
 void MainWindow::on_UserQuitButton_clicked()
@@ -52,10 +91,7 @@ void MainWindow::on_UserQuitButton_clicked()
     msgBox.setDefaultButton(QMessageBox::Ok);
     if(msgBox.exec() == QMessageBox::Ok)
     {
-        QString qstr_login_state = "未登录";
-        ui -> CurrentUserDisplay -> setText(qstr_login_state);
-        ui->LoginRegisterButton->setDisabled(false);
-        ui->UserQuitButton->setDisabled(true);
-
+        User_Manager.logout();
+        set_ui_login_state();
     }
 }

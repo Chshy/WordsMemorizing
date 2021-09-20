@@ -24,5 +24,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    void set_ui_login_state();
 };
 #endif // MAINWINDOW_H
