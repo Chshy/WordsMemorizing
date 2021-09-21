@@ -6,6 +6,8 @@
 #include "loginwindow.h"
 
 #include <string>
+#include <QDebug>
+#include <QDir>
 
 
 
@@ -14,6 +16,17 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //获取当前exe文件路径
+    EXE_QPATH = QCoreApplication::applicationDirPath();
+    EXE_QPATH = QDir::toNativeSeparators(EXE_QPATH);//斜杠转反斜杠
+    EXE_PATH = EXE_QPATH.toStdString();
+    //设定一些文件读写相关代码的工作目录
+    User_Manager.set_exe_path(EXE_PATH);
+
+    qDebug() << EXE_PATH.c_str() << endl;
+    
+    qDebug() << "ReadFile:" << User_Manager.read_from() << endl;
 }
 
 MainWindow::~MainWindow()
