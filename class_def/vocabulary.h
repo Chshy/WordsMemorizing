@@ -27,11 +27,29 @@ struct Paraphrase
 class Vocabulary
 {
 private:
+    /* data */
+public:
     std::string word;
     std::vector<Paraphrase> paraphrases;
-public:
-    Vocabulary(/* args */);
+
+    Vocabulary(std::string input);
     ~Vocabulary();
+
+    void add_paraphrase(Paraphrase input);
+    void add_paraphrase(WordCharacteristic input_char, std::string input_trans);
+};
+
+class VocabularyList
+{
+private:
+    
+public:
+    std::vector<Vocabulary> list; //词汇表
+    VocabularyList(/* args */);
+    ~VocabularyList();
+
+    void add(Vocabulary input);                          //添加词汇
+    bool delet(std::vector<Vocabulary>::size_type index); //下标删除
 };
 
 
