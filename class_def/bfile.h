@@ -21,7 +21,7 @@ public:
     BFile(std::string filename, BFileMode mode);
     ~BFile();
 
-    void open(std::string filename, BFileMode mode);
+    bool open(std::string filename, BFileMode mode);//打开/创建文件
     void close();
 
     template <typename T>
