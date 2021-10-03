@@ -3,6 +3,7 @@
 
 #include <string>
 #include "./sha1/sha1.h"
+#include "bfile.h"
 
 /* * * * * * * * * * * * * * * * * * * * * * * 
     用户类定义
@@ -12,7 +13,6 @@
 class User
 {
 private:
-    
 public:
     std::string username;
     std::string password_sha1;
@@ -21,6 +21,19 @@ public:
     ~User();
     void SetUsername(std::string setusername);
     void SetPassword(std::string setpassword);
+
+    friend BFile &operator<<(BFile &bfile, const User &usr)
+    {
+        bfile << usr.username;
+        bfile << usr.password_sha1;
+        return bfile;
+    }
+    friend BFile &operator>>(BFile &bfile, User &usr)
+    {
+        bfile >> usr.username;
+        bfile >> usr.password_sha1;
+        return bfile;
+    }
 };
 
 #endif
