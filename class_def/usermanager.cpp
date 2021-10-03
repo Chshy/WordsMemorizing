@@ -56,6 +56,7 @@ bool UserManager::tryregister(User input_user)
         }
     }
     this->user_list.push_back(input_user);
+    this->write_to(); //保存到文件
     return true;
 }
 
@@ -71,7 +72,7 @@ User UserManager::get_current_user()
 
 void UserManager::set_exe_path(std::string input)
 {
-    this-> exe_path = input;
+    this->exe_path = input;
 }
 
 bool UserManager::read_from()
@@ -79,13 +80,16 @@ bool UserManager::read_from()
     std::fstream _file;
     _file.open(this->exe_path + USER_FILEPATH + "\\" + USER_FILENAME, std::ios::in | std::ios::binary); //以读模式打开
 
+    std::string tmps = this->exe_path + USER_FILEPATH + "\\" + USER_FILENAME;
+    qDebug() << tmps.c_str() << endl;
+
     if (!_file) //文件不存在
     {
-        qDebug() << "File Not Found" << endl;
+        // qDebug() << "File Not Found" << endl;
 
         std::string mkdir_path = "mkdir " + this->exe_path + USER_FILEPATH;
         qDebug() << mkdir_path.c_str() << endl;
-        system(mkdir_path.c_str());                                  //创建文件夹
+        system(mkdir_path.c_str());                                                                          //创建文件夹
         _file.open(this->exe_path + USER_FILEPATH + "\\" + USER_FILENAME, std::ios::out | std::ios::binary); //尝试创建文件
 
         if (!_file) //创建文件失败
@@ -95,47 +99,35 @@ bool UserManager::read_from()
         }
         else
         {
-            qDebug() << "Create File Sucess" << endl;
+            // qDebug() << "Create File Sucess" << endl;
             _file.close();
             return true; //反正文件是空的，没必要再读了
-            //_file.open(USER_FILEPATH, std::ios::in | std::ios::binary); //以读模式打开
         }
     }
+    else
+    {
+        // qDebug() << "File Found" << endl;
+        _file.close();
+    }
 
-    // User
-    // binary_file.read(reinterpret_cast<char *>(&p_Data),sizeof(WebSites));
-    //    while (_file.read((char *)&s, sizeof(User)))
-    //    {                                      //一直读到文件结束
-    //        int readedBytes = _file.gcount(); //看刚才读了多少字节
-    //        _file << s.szName << " " << s.age << endl;
-    //    }
-
-    // User
-    //     binary_file.read(reinterpret_cast<char *>(&p_Data), sizeof(WebSites));
-    // while (_file.read((char *)&s, sizeof(User)))
-    // {                                     //一直读到文件结束
-    //     int readedBytes = _file.gcount(); //看刚才读了多少字节
-    //     _file << s.szName << " " << s.age << endl;
-    // }
-
-    for (User tmp_user; _file.read(reinterpret_cast<char *>(&tmp_user), sizeof(User)); this->user_list.push_back(tmp_user))
-        ;
-    _file.close();
-
+    BFile _bfile(this->exe_path + USER_FILEPATH + "\\" + USER_FILENAME, BFile::BFileMode_READ);
+    ;
+    // qDebug() << "Start Reading File" << endl;
+    _bfile >> this->user_list;
+    _bfile.close();
+    // qDebug() << "Return From read" << endl;
     return true;
 }
 
 bool UserManager::write_to()
 {
-    std::fstream _file;
-    _file.open(USER_FILEPATH, std::ios::in | std::ios::binary | std::ios::trunc); //以写模式打开
+    //启动程序的时候会读文件，那个时候已经检查过文件是否存在了，这里就不检查了
+    //如果你在程序启动后又把文件删了，那我也不管 喜欢卡bug是吧😓
+    BFile _file(this->exe_path + USER_FILEPATH + "\\" + USER_FILENAME, BFile::BFileMode_WRITE);
 
-    for (std::vector<User>::size_type it = 0; it < this->user_list.size(); ++it)
-    {
-        _file.write(reinterpret_cast<char *>(&(this->user_list[it])), sizeof(User));
-    }
-
+    // qDebug() << "vector_size = " << this->user_list.size();
+    _file << this->user_list;
     _file.close();
-
+    // qDebug() << "Return From write";
     return true;
 }
