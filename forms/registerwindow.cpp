@@ -2,6 +2,7 @@
 #include "ui_registerwindow.h"
 
 #include <string>
+#include <QMessageBox>
 #include "class_def/user.h"
 #include "global_variate.h"
 
@@ -23,14 +24,31 @@ void RegisterWindow::on_CancelButton_clicked()
 
 void RegisterWindow::on_RegisterButton_clicked()
 {
-    //输入合法性检查
+
 
     //读取文本框内容
     QString Qusername = ui->UsernameEdit->text();
     QString Qpassword = ui->PasswordEdit->text();
+    QString Qpasswordconfirm = ui->PasswordConfirmEdit->text();
     //格式转换
     std::string username = Qusername.toStdString();
     std::string password = Qpassword.toStdString();
+    std::string passwordconfirm = Qpasswordconfirm.toStdString();
+
+
+    //输入合法性检查
+
+    if(password.compare(passwordconfirm) != 0)
+    {
+        QMessageBox msgBox(QMessageBox::Warning, "提示", "密码与确认密码不一致！");
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setButtonText(QMessageBox::Ok, QString("确 定"));
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+        return;
+    }
+
+
 
     //创建一个User对象并设置
     User newuser;

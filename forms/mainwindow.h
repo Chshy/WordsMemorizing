@@ -22,6 +22,22 @@ private slots:
 
     void on_UserQuitButton_clicked();
 
+    void on_TodaySignInButton_clicked();
+
+    void on_SelectLibButton_clicked();
+
+    void on_NewLibButton_clicked();
+
+    void on_EditLibButton_clicked();
+
+    void on_EditNoteButton_clicked();
+
+    void on_NewNoteButton_clicked();
+
+    void on_SelectNoteButton_clicked();
+
+    void on_StartTestButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     void set_ui_login_state();
