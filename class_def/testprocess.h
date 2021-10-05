@@ -64,6 +64,8 @@ public:
     //一些获取数据用的函数
     std::string get_progress_display_str();
     std::string get_accuracy_display_str();
+    std::string get_score_display_str();
+    
 
     int get_quiz_total();
     int get_ans_correct();

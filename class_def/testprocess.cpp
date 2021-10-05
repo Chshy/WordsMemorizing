@@ -131,14 +131,21 @@ double TestProcess::DataUpdate(bool ans_is_correct)
 std::string TestProcess::get_progress_display_str()
 {
     char tmp[16];
-    sprintf(tmp,"%d/%d",ans_total,quiz_total);
+    sprintf(tmp, "%d/%d", ans_total, quiz_total);
     std::string ret(tmp);
     return ret;
 }
 std::string TestProcess::get_accuracy_display_str()
 {
     char tmp[16];
-    sprintf(tmp,"%0.2lf%%",accuracy*100);
+    sprintf(tmp, "%0.2lf%%", accuracy * 100);
+    std::string ret(tmp);
+    return ret;
+}
+std::string TestProcess::get_score_display_str()
+{
+    char tmp[16];
+    sprintf(tmp, "%d", 10 * (2 * ans_correct - ans_total));
     std::string ret(tmp);
     return ret;
 }
