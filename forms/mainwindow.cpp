@@ -34,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent)
     // qDebug() << EXE_PATH.c_str() << endl;
 
     // qDebug() << "ReadFile:" << User_Manager.read_from() << endl;
+
+    set_ui_login_state();
     qDebug() << "MainWindowOver" << endl;
 }
 
@@ -50,12 +52,13 @@ void MainWindow::set_ui_login_state()
     QString qstr_login_state;
     if (is_login) //登录了
     {
-        qstr_login_state = QString::fromStdString(User_Manager.get_current_user().username);
+        qstr_login_state = QString::fromStdString(User_Manager.get_current_user().get_username());
     }
     else //没登录
     {
         qstr_login_state = "未登录";
     }
+    ui->CurrentUserDisplay->setText(qstr_login_state);
 
     ui->LoginRegisterButton->setDisabled(is_login);
 
@@ -63,7 +66,49 @@ void MainWindow::set_ui_login_state()
     ui->TodaySignInButton->setDisabled(!is_login);
     ui->UserSettingButton->setDisabled(!is_login);
 
-    ui->CurrentUserDisplay->setText(qstr_login_state);
+    ui->NewLibButton->setDisabled(!is_login);
+    ui->EditLibButton->setDisabled(!is_login);
+    ui->SelectLibButton->setDisabled(!is_login);
+    ui->NewNoteButton->setDisabled(!is_login);
+    ui->EditNoteButton->setDisabled(!is_login);
+    ui->SelectNoteButton->setDisabled(!is_login);
+    ui->StartLearningButton->setDisabled(!is_login);
+    ui->StartTestButton->setDisabled(!is_login);
+
+    if (is_login) //登录了
+    {
+        refresh_user_status();
+//        UserData data = User_Manager.get_current_user().data;
+//        ui->TotalSigninDisplay->setText(QString::fromStdString(data.get_signin_display_str()));
+//        ui->TotalScoreDisplay->setText(QString::fromStdString(data.get_score_display_str()));
+//        ui->TotalAccuracyDisplay->setText(QString::fromStdString(data.get_accuracy_display_str()));
+    }
+    else //没登录
+    {
+        ui->TotalSigninDisplay->setText("H0");
+        ui->TotalScoreDisplay->setText("H0");
+        ui->TotalAccuracyDisplay->setText("H00.00%");
+    }
+
+    if(is_login)
+    {
+        if(User_Manager.currentuser_today_firstlogin())
+        {
+            ui->TodaySignInButton->setDisabled(false);
+        }
+        else
+        {
+            ui->TodaySignInButton->setDisabled(true);
+        }
+    }
+}
+
+void MainWindow::refresh_user_status()
+{
+    UserData data = User_Manager.get_current_user().data;
+    ui->TotalSigninDisplay->setText(QString::fromStdString(data.get_signin_display_str()));
+    ui->TotalScoreDisplay->setText(QString::fromStdString(data.get_score_display_str()));
+    ui->TotalAccuracyDisplay->setText(QString::fromStdString(data.get_accuracy_display_str()));
 }
 
 void MainWindow::on_LoginRegisterButton_clicked()
@@ -109,6 +154,23 @@ void MainWindow::on_UserQuitButton_clicked()
 
 void MainWindow::on_TodaySignInButton_clicked()
 {
+    if(User_Manager.islogin() == false)
+        return;
+    User_Manager.update_currentuser_logindate();
+    ui->TodaySignInButton->setDisabled(true);
+
+    refresh_user_status();
+//    UserData data = User_Manager.get_current_user().data;
+//    ui->TotalSigninDisplay->setText(QString::fromStdString(data.get_signin_display_str()));
+////    ui->TotalScoreDisplay->setText(QString::fromStdString(data.get_score_display_str()));
+////    ui->TotalAccuracyDisplay->setText(QString::fromStdString(data.get_accuracy_display_str()));
+
+    QMessageBox msgBox(QMessageBox::Information, "提示", "签到完成");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setButtonText(QMessageBox::Ok, QString("确 定"));
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+    return;
 }
 
 void MainWindow::on_SelectLibButton_clicked()
@@ -389,6 +451,8 @@ void MainWindow::on_StartTestButton_clicked()
 
 //    ui->LoginRegisterButton->setDisabled(is_login);
 //qDebug() << "33333";
+
+    testw->Main_Window_Ptr = this;
     testw->show();
 
 }
