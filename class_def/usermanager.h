@@ -19,11 +19,11 @@
 class UserManager
 {
 private:
-    bool login;        //是否已经登录
-    User current_user; //当前登录用户
-    // int user_list_size;          //用户列表大小
+    bool login;                  //是否已经登录
+//    User current_user;           //当前登录用户
+    int current_user_index;      //当前用户下标
     std::vector<User> user_list; //用户列表
-    std::string exe_path; //exe文件目录
+    std::string exe_path;        //exe文件目录
 
 public:
     UserManager(/* args */);
@@ -36,8 +36,13 @@ public:
     //没有删除用户的功能！
 
     //状态判断
-    bool islogin();
-    User get_current_user();
+    bool islogin();                      //当前有没有登录用户
+    User get_current_user();             //获取当前登录用户信息(只读)
+    bool currentuser_today_firstlogin(); //获取当前用户是否为当天第一次登录
+
+    //数据更新
+    void update_currentuser_status(bool ans_is_correct); //更新答题数据
+    void update_currentuser_logindate();                 //更新登录日期
 
     //文件
     void set_exe_path(std::string input);

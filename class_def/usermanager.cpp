@@ -21,12 +21,13 @@ bool UserManager::trylogin(User input_user)
     //尝试搜索用户名
     for (std::vector<User>::size_type it = 0; it < this->user_list.size(); ++it)
     {
-        if ((this->user_list[it].username.compare(input_user.username)) == 0) //两个用户名相等
+        if ((this->user_list[it].get_username().compare(input_user.get_username())) == 0) //两个用户名相等
         {
-            if ((this->user_list[it].password_sha1.compare(input_user.password_sha1)) == 0) //两个sha1相等
+            if ((this->user_list[it].get_password_sha1().compare(input_user.get_password_sha1())) == 0) //两个sha1相等
             {
                 this->login = true;
-                this->current_user = input_user;
+//                this->current_user = user_list[it];
+                this->current_user_index = it;
                 return true;
             }
             else
@@ -50,7 +51,7 @@ bool UserManager::tryregister(User input_user)
     //尝试搜索用户名
     for (std::vector<User>::size_type it = 0; it < this->user_list.size(); ++it)
     {
-        if ((this->user_list[it].username.compare(input_user.username)) == 0) //两个用户名相等
+        if ((this->user_list[it].get_username().compare(input_user.get_username())) == 0) //两个用户名相等
         {
             return false;
         }
@@ -67,8 +68,36 @@ bool UserManager::islogin()
 
 User UserManager::get_current_user()
 {
-    return current_user;
+    //return current_user;
+    return user_list[current_user_index];
 }
+
+void UserManager::update_currentuser_status(bool ans_is_correct)
+{
+    if(!login)
+        return;
+    user_list[current_user_index].data.update_statistics(ans_is_correct);
+    this->write_to();
+}
+
+void UserManager::update_currentuser_logindate()
+{
+     if(!login)
+         return;
+    user_list[current_user_index].data.update_login_date();
+    this->write_to();
+}
+
+bool UserManager::currentuser_today_firstlogin()
+{
+    if(!login)
+        return false;
+    return user_list[current_user_index].data.today_first_login();
+}
+
+
+
+
 
 void UserManager::set_exe_path(std::string input)
 {
