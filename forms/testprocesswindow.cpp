@@ -190,11 +190,18 @@ void TestProcessWindow::on_AnswerButton_clicked()
     ui->ReslDisplayEdit->setText(QString::fromStdString(display_str));
 
     //更新数据
-    Test_Process.DataUpdate(ans_correct);
+    Test_Process.DataUpdate(ans_correct);//本次数据
 
-    ui->LibProgressBar->setValue(Test_Process.get_ans_total());
-    ui->ProgressDisplay->setText(QString::fromStdString(Test_Process.get_progress_display_str()));
-    ui->AccuracyDisplay->setText(QString::fromStdString(Test_Process.get_accuracy_display_str()));
+    ui->LibProgressBar->setValue(Test_Process.get_ans_total());//进度条
+    ui->ProgressDisplay->setText(QString::fromStdString(Test_Process.get_progress_display_str()));//进度
+    ui->AccuracyDisplay->setText(QString::fromStdString(Test_Process.get_accuracy_display_str()));//正确率
+    ui->ScoreDisplay->setText(QString::fromStdString(Test_Process.get_score_display_str()));//分数
+
+
+    User_Manager.update_currentuser_status(ans_correct);
+    Main_Window_Ptr->refresh_user_status();
+
+
 
     ui->AddToNoteButton->setDisabled(no_notebook);
 

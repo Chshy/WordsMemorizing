@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QButtonGroup>
+#include "mainwindow.h"
 #include "class_def/testprocess.h"
 #include "global_variate.h"
 
@@ -23,6 +24,7 @@ public:
     QString Lib_QPATH;
     QString Note_QPATH;
 
+    MainWindow *Main_Window_Ptr;
 
 
     void setPATH(bool no_notebook_input, QString Lib_QPATH_input, QString Note_QPATH_input);
