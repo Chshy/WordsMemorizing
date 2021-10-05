@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>526</width>
-    <height>266</height>
+    <width>552</width>
+    <height>271</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,7 +44,7 @@
     </widget>
     <widget class="QPushButton" name="UserQuitButton">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
@@ -115,7 +115,7 @@
     </widget>
     <widget class="QPushButton" name="UserSettingButton">
      <property name="enabled">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
@@ -126,7 +126,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>用户设置</string>
+      <string>重置统计</string>
      </property>
     </widget>
    </widget>
@@ -135,7 +135,7 @@
      <rect>
       <x>230</x>
       <y>20</y>
-      <width>281</width>
+      <width>311</width>
       <height>201</height>
      </rect>
     </property>
@@ -145,7 +145,7 @@
     <widget class="QPushButton" name="StartTestButton">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>220</x>
        <y>170</y>
        <width>75</width>
        <height>23</height>
@@ -153,19 +153,6 @@
      </property>
      <property name="text">
       <string>开始背诵</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="StartLearningButton">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>170</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>开始学习</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_3">
@@ -184,7 +171,7 @@
     <widget class="QPushButton" name="SelectNoteButton">
      <property name="geometry">
       <rect>
-       <x>170</x>
+       <x>200</x>
        <y>120</y>
        <width>101</width>
        <height>23</height>
@@ -199,18 +186,18 @@
       <rect>
        <x>90</x>
        <y>120</y>
-       <width>75</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
      <property name="text">
-      <string>编辑笔记本</string>
+      <string>查看/编辑笔记本</string>
      </property>
     </widget>
     <widget class="QPushButton" name="SelectLibButton">
      <property name="geometry">
       <rect>
-       <x>170</x>
+       <x>200</x>
        <y>50</y>
        <width>101</width>
        <height>23</height>
@@ -225,12 +212,12 @@
       <rect>
        <x>90</x>
        <y>50</y>
-       <width>75</width>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
      <property name="text">
-      <string>编辑词库</string>
+      <string>查看/编辑词库</string>
      </property>
     </widget>
     <widget class="QPushButton" name="NewLibButton">
@@ -277,7 +264,7 @@
       <rect>
        <x>110</x>
        <y>20</y>
-       <width>161</width>
+       <width>191</width>
        <height>20</height>
       </rect>
      </property>
@@ -296,7 +283,7 @@
       <rect>
        <x>110</x>
        <y>90</y>
-       <width>161</width>
+       <width>191</width>
        <height>20</height>
       </rect>
      </property>
@@ -309,6 +296,31 @@
      <property name="readOnly">
       <bool>true</bool>
      </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>170</y>
+       <width>191</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>每个单词出现一次</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>仅出现未答对单词</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>所有单词随机出现</string>
+      </property>
+     </item>
     </widget>
    </widget>
    <widget class="QGroupBox" name="DataGroupBox">
@@ -323,7 +335,7 @@
     <property name="title">
      <string>数据统计</string>
     </property>
-    <widget class="QLabel" name="label_12">
+    <widget class="QLabel" name="TotalAccuracyDisplay">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -375,7 +387,7 @@
       <string>累计得分：</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_8">
+    <widget class="QLabel" name="TotalSigninDisplay">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -388,7 +400,7 @@
       <string>00</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_10">
+    <widget class="QLabel" name="TotalScoreDisplay">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -421,7 +433,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>526</width>
+     <width>552</width>
      <height>22</height>
     </rect>
    </property>
