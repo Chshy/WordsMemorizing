@@ -5,7 +5,7 @@
 const std::string USER_FILEPATH = "\\config";
 const std::string USER_FILENAME = "user.dat";
 
-UserManager::UserManager(/* args */)
+UserManager::UserManager()
 {
     this->login = false; //初始是没有用户登录的状态
 }

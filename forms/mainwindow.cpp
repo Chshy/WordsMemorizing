@@ -85,9 +85,9 @@ void MainWindow::set_ui_login_state()
     }
     else //没登录
     {
-        ui->TotalSigninDisplay->setText("H0");
-        ui->TotalScoreDisplay->setText("H0");
-        ui->TotalAccuracyDisplay->setText("H00.00%");
+        ui->TotalSigninDisplay->setText("0");
+        ui->TotalScoreDisplay->setText("0");
+        ui->TotalAccuracyDisplay->setText("00.00%");
     }
 
     if(is_login)
