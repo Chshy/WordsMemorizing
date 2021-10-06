@@ -167,7 +167,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>编辑</string>
+     <string>查看/编辑</string>
     </property>
    </widget>
    <widget class="QComboBox" name="CharComboBox">
@@ -256,7 +256,7 @@
      <x>0</x>
      <y>0</y>
      <width>525</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
