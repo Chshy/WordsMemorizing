@@ -72,7 +72,7 @@ void MainWindow::set_ui_login_state()
     ui->NewNoteButton->setDisabled(!is_login);
     ui->EditNoteButton->setDisabled(!is_login);
     ui->SelectNoteButton->setDisabled(!is_login);
-    ui->StartLearningButton->setDisabled(!is_login);
+    //ui->StartLearningButton->setDisabled(!is_login);
     ui->StartTestButton->setDisabled(!is_login);
 
     if (is_login) //登录了
@@ -441,7 +441,7 @@ void MainWindow::on_StartTestButton_clicked()
     // testw->Test_Process.list = Lib_Manager.list;
     // testw->Test_Process.visited.resize(Lib_Manager.list.size());
 
-    testw->Test_Process.init(Lib_Manager.list);
+    testw->Test_Process.init(Lib_Manager.list,QuizRange(ui->QuizRangeComboBox->currentIndex()));
 
 //qDebug() << "22222";
     //传入选定的两个路径参数
