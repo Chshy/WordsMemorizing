@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>测试</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox">
@@ -407,7 +407,7 @@
      <x>0</x>
      <y>0</y>
      <width>466</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

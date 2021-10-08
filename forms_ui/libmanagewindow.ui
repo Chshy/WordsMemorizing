@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>查看/编辑</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="SaveFileButton">
