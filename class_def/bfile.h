@@ -54,8 +54,7 @@ public:
     {
         int size = m.size();
         file.write((char *)&size, sizeof(int));
-        std::map<T1, T2>::iterator it;
-        for (it = m.begin(); it != m.end(); ++it)
+        for (auto it = m.begin(); it != m.end(); ++it)
         {
             *this << it->first;
             *this << it->second;
@@ -90,7 +89,7 @@ public:
         return *this;
     }
     template <typename T1, typename T2>
-    BFile &operator>>(const std::map<T1, T2> &m)
+    BFile &operator>>(std::map<T1, T2> &m)
     {
         int size;
         file.read((char *)&size, sizeof(int));
@@ -100,7 +99,6 @@ public:
         {
             *this >> tmp_1st;
             *this >> tmp_2nd;
-            // m->insert(make_pair(tmp_1st, tmp_2nd));
             m.insert(make_pair(tmp_1st, tmp_2nd));
         }
         return *this;
