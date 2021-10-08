@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <map>
 
 class BFile
 {
@@ -21,7 +22,7 @@ public:
     BFile(std::string filename, BFileMode mode);
     ~BFile();
 
-    bool open(std::string filename, BFileMode mode);//打开/创建文件
+    bool open(std::string filename, BFileMode mode); //打开/创建文件
     void close();
 
     template <typename T>
@@ -46,6 +47,18 @@ public:
         int size = s.size();
         file.write((char *)&size, sizeof(int));
         file.write((char *)s.data(), sizeof(char) * size);
+        return *this;
+    }
+    template <typename T1, typename T2>
+    BFile &operator<<(const std::map<T1, T2> &m)
+    {
+        int size = m.size();
+        file.write((char *)&size, sizeof(int));
+        for (auto it = m.begin(); it != m.end(); ++it)
+        {
+            *this << it->first;
+            *this << it->second;
+        }
         return *this;
     }
 
@@ -73,6 +86,21 @@ public:
         file.read((char *)&size, sizeof(int));
         s.resize(size);
         file.read((char *)s.data(), sizeof(char) * size);
+        return *this;
+    }
+    template <typename T1, typename T2>
+    BFile &operator>>(std::map<T1, T2> &m)
+    {
+        int size;
+        file.read((char *)&size, sizeof(int));
+        T1 tmp_1st;
+        T2 tmp_2nd;
+        for (int i = 0; i < size; i++)
+        {
+            *this >> tmp_1st;
+            *this >> tmp_2nd;
+            m.insert(make_pair(tmp_1st, tmp_2nd));
+        }
         return *this;
     }
 };

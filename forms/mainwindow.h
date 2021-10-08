@@ -40,6 +40,10 @@ private slots:
 
     void on_StartTestButton_clicked();
 
+    void on_GenerateVocStatisticsButton_clicked();
+
+    void on_ClearVocStatisticsButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     void set_ui_login_state();
