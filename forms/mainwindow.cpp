@@ -435,6 +435,7 @@ void MainWindow::on_StartTestButton_clicked()
 
     TestProcessWindow *testw = new TestProcessWindow(this);
     testw->setWindowModality(Qt::WindowModal);
+    testw->setAttribute(Qt::WA_DeleteOnClose);
 
 //    qDebug() << "11111";
     //读取单词列表
