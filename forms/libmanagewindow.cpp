@@ -226,8 +226,9 @@ void LibManageWindow::on_EditParapButton_clicked()
         int selected = ui->ParapListWidget->currentRow();
         if (selected >= 0)
         {
+            qDebug() << (ui->ParapListWidget->item(selected)->text());
             ///////////////////////////////////
-            Lib_Manager.list[Lib_Manager.current_edit_ind].find_and_delet((ui->WordListWidget->item(selected)->text()).toStdString());
+            Lib_Manager.list[Lib_Manager.current_edit_ind].find_and_delet((ui->ParapListWidget->item(selected)->text()).toStdString());
             Paraphrase tmp(Paraphrase::WordCharacteristic(ui->CharComboBox->currentIndex()), (ui->ParapLineEdit->text()).toStdString());
             Lib_Manager.list[Lib_Manager.current_edit_ind].add_paraphrase(tmp);
             ///////////////////////////////////
