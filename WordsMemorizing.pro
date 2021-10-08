@@ -24,6 +24,7 @@ SOURCES += \
     class_def/vocabulary.cpp \
     class_def/vocabularymanager.cpp \
     class_def/testprocess.cpp \ 
+    class_def/vocabularystatistics.cpp \
     forms/mainwindow.cpp \
     forms/loginwindow.cpp \
     forms/registerwindow.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     class_def/vocabulary.h \
     class_def/vocabularymanager.h \
     class_def/testprocess.h \
+    class_def/vocabularystatistics.h \
     forms/mainwindow.h \
     forms/loginwindow.h \
     forms/registerwindow.h \
