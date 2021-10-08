@@ -162,6 +162,10 @@ void TestProcessWindow::on_AnswerButton_clicked()
             Test_Process.mark_by_index(quiz.voc_index);
     }
 
+    //统计信息
+    Vocabulary_Counter.update_statistics(quiz.voc.word,ans_correct);
+    Vocabulary_Counter.savefile(EXE_PATH + "\\report\\save.dat");
+
     //更新数据
     Test_Process.DataUpdate(ans_correct); //本次数据
 

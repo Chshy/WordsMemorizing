@@ -21,15 +21,28 @@ MainWindow::MainWindow(QWidget *parent)
     EXE_QPATH = QCoreApplication::applicationDirPath();
     EXE_QPATH = QDir::toNativeSeparators(EXE_QPATH); //斜杠转反斜杠
     EXE_PATH = EXE_QPATH.toStdString();
-    //设定一些文件读写相关代码的工作目录
-    User_Manager.set_exe_path(EXE_PATH);
-    User_Manager.read_from();
 
     //创建一些文件夹
     std::string mkdir_path = "mkdir " + EXE_PATH + "\\voclist";
     system(mkdir_path.c_str());
     mkdir_path = "mkdir " + EXE_PATH + "\\note";
     system(mkdir_path.c_str());
+    mkdir_path = "mkdir " + EXE_PATH + "\\report";
+    system(mkdir_path.c_str());
+
+    //设定一些文件读写相关代码的工作目录
+    User_Manager.set_exe_path(EXE_PATH);
+    User_Manager.read_from();
+
+    if(Vocabulary_Counter.readfile(EXE_PATH + "\\report\\save.dat"))
+    {//文件读取成功
+
+    }
+    else
+    {//文件不存在，新建
+        Vocabulary_Counter.savefile(EXE_PATH + "\\report\\save.dat");
+    }
+
 
     // qDebug() << EXE_PATH.c_str() << endl;
 
@@ -456,4 +469,59 @@ void MainWindow::on_StartTestButton_clicked()
     testw->Main_Window_Ptr = this;
     testw->show();
 
+}
+
+void MainWindow::on_GenerateVocStatisticsButton_clicked()
+{
+    QFileDialog *fileDialog = new QFileDialog(this);
+    fileDialog->setWindowTitle(QStringLiteral("保存文件"));
+    fileDialog->setAcceptMode(QFileDialog::AcceptSave);                                   //设置文件对话框为保存模式
+    fileDialog->setOptions(QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks); //只显示文件夹
+    fileDialog->setDirectory(EXE_QPATH + "\\report");
+    fileDialog->setNameFilter(tr("File(*.*)"));
+    fileDialog->setFileMode(QFileDialog::ExistingFiles);
+    fileDialog->setViewMode(QFileDialog::List);
+
+    if (fileDialog->exec())
+    {
+        QString QPATH;
+        std::string PATH;
+        QPATH = fileDialog->selectedFiles()[0];
+        QPATH = QDir::toNativeSeparators(QPATH); //斜杠转反斜杠
+        PATH = QPATH.toStdString();
+
+        bool generate_sucess = Vocabulary_Counter.generate(PATH);
+        if(generate_sucess)
+        {
+            QMessageBox msgBox(QMessageBox::Information, "提示", "报告生成完成");
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setButtonText(QMessageBox::Ok, QString("确 定"));
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
+            std::string txt_path = "notepad " + PATH;
+            system(txt_path.c_str());
+        }
+        else
+        {
+            QMessageBox msgBox(QMessageBox::Warning, "提示", "报告生成错误");
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setButtonText(QMessageBox::Ok, QString("确 定"));
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
+        }
+    }
+}
+
+void MainWindow::on_ClearVocStatisticsButton_clicked()
+{
+    QMessageBox msgBox(QMessageBox::Information, "提示", "您确定要清空统计历史吗？");
+    msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+    msgBox.setButtonText(QMessageBox::Ok, QString("确 定"));
+    msgBox.setButtonText(QMessageBox::Cancel, QString("取 消"));
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    if (msgBox.exec() == QMessageBox::Ok)
+    {
+        Vocabulary_Counter.clear();
+        Vocabulary_Counter.savefile(EXE_PATH + "\\report\\save.dat");
+    }
 }
