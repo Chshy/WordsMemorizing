@@ -69,10 +69,10 @@ Vocabulary::Vocabulary()
 {
 }
 
-//词汇构造（初始化英文）
+// 词汇构造（初始化英文）
 Vocabulary::Vocabulary(std::string input)
 {
-    this->word = input;
+   this->word = input;
 }
 
 Vocabulary::~Vocabulary()
@@ -86,13 +86,13 @@ void Vocabulary::add_paraphrase(Paraphrase input)
 }
 
 //词汇添加解释
-void Vocabulary::add_paraphrase(Paraphrase::WordCharacteristic input_char, std::string input_trans)
-{
-    Paraphrase input;
-    input.characteristic = input_char;
-    input.translation = input_trans;
-    this->paraphrases.push_back(input);
-}
+// void Vocabulary::add_paraphrase(Paraphrase::WordCharacteristic input_char, std::string input_trans)
+// {
+//     Paraphrase input;
+//     input.characteristic = input_char;
+//     input.translation = input_trans;
+//     this->paraphrases.push_back(input);
+// }
 
 bool Vocabulary::delet(std::vector<Paraphrase>::size_type index)
 {

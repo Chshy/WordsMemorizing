@@ -5,12 +5,11 @@
 #include <vector>
 #include "bfile.h"
 
-class Paraphrase //词汇的一个解释
+class Paraphrase //词汇解释 类
 {
 private:
-    /* data */
 public:
-    enum WordCharacteristic
+    enum WordCharacteristic //词性枚举
     {
         CHAR_noun = 0,        //名词n.
         CHAR_pronoun = 1,     //代词pron.
@@ -27,11 +26,11 @@ public:
     WordCharacteristic characteristic; //词性
     std::string translation;           //中文翻译
 
-    Paraphrase();
-    Paraphrase(WordCharacteristic input_char,std::string input_trans);
-    ~Paraphrase();
+    Paraphrase();                                                       //构造函数
+    Paraphrase(WordCharacteristic input_char, std::string input_trans); //构造函数
+    ~Paraphrase();                                                      //析构函数
 
-    std::string get_display_str();
+    std::string get_display_str(); //获取显示字符串
 
     friend BFile &operator<<(BFile &bfile, const Paraphrase &par)
     {
@@ -50,20 +49,18 @@ public:
 class Vocabulary
 {
 private:
-    /* data */
 public:
-    std::string word;                    //英文
-    std::vector<Paraphrase> paraphrases; //解释们
+    std::string word;                    //词汇英文
+    std::vector<Paraphrase> paraphrases; //词汇解释
 
-    Vocabulary();
-    Vocabulary(std::string input);
-    ~Vocabulary();
+    Vocabulary();                  //构造函数
+    Vocabulary(std::string input); //构造函数
+    ~Vocabulary();                 //析构函数
 
-    void add_paraphrase(Paraphrase input);
-    void add_paraphrase(Paraphrase::WordCharacteristic input_char, std::string input_trans);
-    bool delet(std::vector<Paraphrase>::size_type index);
-    int find(std::string input);
-    bool find_and_delet(std::string input);
+    void add_paraphrase(Paraphrase input);                //添加解释
+    bool delet(std::vector<Paraphrase>::size_type index); //删除解释
+    int find(std::string input);                          //查找解释
+    bool find_and_delet(std::string input);               //查找并删除解释
 
     friend BFile &operator<<(BFile &bfile, const Vocabulary &voc)
     {

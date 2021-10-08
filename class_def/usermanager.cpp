@@ -151,7 +151,6 @@ bool UserManager::read_from()
 bool UserManager::write_to()
 {
     //启动程序的时候会读文件，那个时候已经检查过文件是否存在了，这里就不检查了
-    //如果你在程序启动后又把文件删了，那我也不管 喜欢卡bug是吧😓
     BFile _file(this->exe_path + USER_FILEPATH + "\\" + USER_FILENAME, BFile::BFileMode_WRITE);
 
     // qDebug() << "vector_size = " << this->user_list.size();

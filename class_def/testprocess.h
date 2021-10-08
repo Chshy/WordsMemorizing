@@ -56,7 +56,6 @@ private:
     double accuracy;              //正确率
 public:
     TestProcess();
-    // TestProcess(std::vector<Vocabulary> input_list); //构造函数
     ~TestProcess();
 
     void init(std::vector<Vocabulary> input_list, QuizRange range_input); //初始化
@@ -67,14 +66,14 @@ public:
     bool mark_by_index(int ind_input); //根据下标做标记
 
     //一些获取数据用的函数
-    std::string get_progress_display_str();
-    std::string get_accuracy_display_str();
-    std::string get_score_display_str();
+    std::string get_progress_display_str(); //获取进度显示字符串
+    std::string get_accuracy_display_str(); //获取准确度显示字符串
+    std::string get_score_display_str();    //获取分数显示字符串
 
-    int get_quiz_total();
-    int get_ans_correct();
-    int get_ans_total();
-    double get_accuracy();
+    int get_quiz_total();  //获取总题目数
+    int get_ans_correct(); //获取正确答题数
+    int get_ans_total();   //获取总答题数
+    double get_accuracy(); //获取准确度
 };
 
 #endif

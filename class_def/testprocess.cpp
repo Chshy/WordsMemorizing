@@ -5,12 +5,6 @@ TestProcess::TestProcess()
     srand((unsigned)time(NULL));
 }
 
-// TestProcess::TestProcess(std::vector<Vocabulary> input_list)
-// {
-//     srand((unsigned)time(NULL));
-//     init(input_list);
-// }
-
 TestProcess::~TestProcess()
 {
 }
@@ -49,7 +43,7 @@ QuizUnit TestProcess::DrawQuiz(QuizType quiz_type_t)
     quiz_ret.voc = list[rand_ind]; //复制单词
     quiz_ret.voc_index = rand_ind;
 
-    //那就在QUIZTYPE_CHOICE和QUIZTYPE_FILLIN里随机选择一个
+    //如果不指定出题类型 那就在QUIZTYPE_CHOICE和QUIZTYPE_FILLIN里随机选择一个
     if (quiz_type_t == QUIZTYPE_ALL)
         quiz_type = QuizType(rand() % QUIZTYPE_ALL);
     else
