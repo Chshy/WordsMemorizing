@@ -1,6 +1,5 @@
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
-
 #include <string>
 #include "class_def/user.h"
 #include "global_variate.h"

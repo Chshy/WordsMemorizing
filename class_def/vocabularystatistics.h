@@ -42,7 +42,7 @@ public:
     VocabularyCounter();
     ~VocabularyCounter();
 
-    void update_statistics(std::string word,bool answer_is_correct);
+    void update_statistics(std::string word, bool answer_is_correct);
     bool readfile(std::string filename); //读取文件
     bool savefile(std::string filename); //保存至文件
     void clear();                        //清空已加载内容

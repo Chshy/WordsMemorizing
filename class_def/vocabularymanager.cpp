@@ -81,7 +81,7 @@ int VocabularyManager::find(std::string input)
 bool VocabularyManager::find_and_delet(std::string input)
 {
     int ind = find(input);
-    if(ind == -1)
+    if (ind == -1)
     {
         return false;
     }

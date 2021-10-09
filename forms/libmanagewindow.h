@@ -3,8 +3,9 @@
 
 #include <QMainWindow>
 
-namespace Ui {
-class LibManageWindow;
+namespace Ui
+{
+    class LibManageWindow;
 }
 
 class LibManageWindow : public QMainWindow

@@ -76,20 +76,4 @@ public:
     }
 };
 
-// class VocabularyList
-// {
-// private:
-//     /* data */
-// public:
-//     BFile _file;//读写文件
-//     std::vector<Vocabulary> list; //词汇表
-//     std::vector<bool> visited;//访问标记
-
-//     VocabularyList(/* args */);
-//     ~VocabularyList();
-
-//     void add(Vocabulary input);                           //添加词汇
-//     bool delet(std::vector<Vocabulary>::size_type index); //下标删除
-// };
-
 #endif

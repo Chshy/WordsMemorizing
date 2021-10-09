@@ -1,6 +1,5 @@
 #include "libmanagewindow.h"
 #include "ui_libmanagewindow.h"
-
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QString>
@@ -8,7 +7,6 @@
 #include "class_def/vocabulary.h"
 #include "global_variate.h"
 
-#include <QDebug>
 
 LibManageWindow::LibManageWindow(QWidget *parent) : QMainWindow(parent),
                                                     ui(new Ui::LibManageWindow)
@@ -28,30 +26,22 @@ LibManageWindow::~LibManageWindow()
 
 void LibManageWindow::on_AddWordButton_clicked()
 {
-    //qDebug() << ui->WordListWidget->currentRow();
     bool word_input;
     QString input_text = QInputDialog::getText(this, tr("单词输入"), tr("请输入单词"), QLineEdit::Normal, 0, &word_input);
     if (word_input && !input_text.isEmpty())
     {
         ui->WordListWidget->addItem(input_text);
-        ////////////////////////////////////////
         Vocabulary tmp(input_text.toStdString());
         Lib_Manager.add(tmp);
-        // qDebug() << Lib_Manager.list.size();
-        ////////////////////////////////////////
     }
 }
 
 void LibManageWindow::on_DeletWordButton_clicked()
 {
     int selected = ui->WordListWidget->currentRow();
-    //qDebug() << ui->WordListWidget->currentRow();
     if (selected >= 0)
     {
-        ////////////////////////////////////////
         Lib_Manager.find_and_delet((ui->WordListWidget->item(selected)->text()).toStdString());
-        // qDebug() << Lib_Manager.list.size();
-        ////////////////////////////////////////
         ui->WordListWidget->takeItem(selected);
     }
     else
@@ -70,22 +60,11 @@ void LibManageWindow::on_EditWordButton_clicked()
     int selected = ui->WordListWidget->currentRow();
     if (selected >= 0)
     {
-        qDebug() << "List2Count = " << ui->ParapListWidget->count();
         //清空旧列表
         while (ui->ParapListWidget->count())
         {
-            qDebug() << "Loop:" << ui->ParapListWidget->count();
             ui->ParapListWidget->takeItem(0);
         }
-        //添加新列表
-        // for (std::vector<Vocabulary>::size_type it = 0; it < Lib_Manager.list.size(); ++it)
-        // {
-        //     for (std::vector<Paraphrase>::size_type it2 = 0; it2 < Lib_Manager.list[it].paraphrases.size(); ++it2)
-        //     {
-        //         ui->ParapListWidget->addItem(QString::fromStdString(Lib_Manager.list[it].paraphrases[it2].get_display_str()));
-        //     }
-        // }
-
         Lib_Manager.current_edit_ind = Lib_Manager.find((ui->WordListWidget->item(selected)->text()).toStdString());
         for (std::vector<Paraphrase>::size_type it = 0; it < Lib_Manager.list[Lib_Manager.current_edit_ind].paraphrases.size(); ++it)
         {
@@ -102,8 +81,6 @@ void LibManageWindow::on_EditWordButton_clicked()
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 void LibManageWindow::on_AddParapButton_clicked()
 {
     if (ui->WordListWidget->currentRow() < 0)
@@ -115,8 +92,6 @@ void LibManageWindow::on_AddParapButton_clicked()
         msgBox.exec();
         return;
     }
-    qDebug() << ui->CharComboBox->currentIndex();
-    qDebug() << ui->CharComboBox->currentText();
 
     if (ui->ParapLineEdit->text() == "")
     {
@@ -131,11 +106,8 @@ void LibManageWindow::on_AddParapButton_clicked()
         QString input_text;
         input_text = ui->CharComboBox->currentText() + " " + ui->ParapLineEdit->text();
         ui->ParapListWidget->addItem(input_text);
-        ////////////////////////////////////////
         Paraphrase tmp(Paraphrase::WordCharacteristic(ui->CharComboBox->currentIndex()), (ui->ParapLineEdit->text()).toStdString());
         Lib_Manager.list[Lib_Manager.current_edit_ind].add_paraphrase(tmp);
-        // qDebug() << Lib_Manager.list.size();
-        ////////////////////////////////////////
     }
 }
 
@@ -152,44 +124,14 @@ void LibManageWindow::on_DeletParapButton_clicked()
         return;
     }
 
-    qDebug() << "Hello!!!!!!!!!!!!!!!!";
     int selected = ui->ParapListWidget->currentRow();
-    qDebug() << selected;
-    qDebug() << ui->ParapListWidget->currentItem()->text();
 
-    //    qDebug() << selected;
-    //    qDebug() << "H1";
-    //    QListWidgetItem *t_item;
-    //    qDebug() << "H2";
-    //    ui->WordListWidget->item(selected);
-    //    qDebug() << "H2.5";
-    //    t_item = (ui->WordListWidget->item(selected));
-    //    qDebug() << "H3";
-    //    qDebug() << t_item->text();
-
-    //    qDebug() << ui->WordListWidget->item(selected)->text();
-    //    qDebug() << "Hello!!!!!!!!!!!!!!!!";
     if (selected >= 0)
     {
         QString qtmp = ui->ParapListWidget->currentItem()->text();
         std::string tmp = qtmp.toStdString();
-        qDebug() << "EInd = " << Lib_Manager.current_edit_ind;
-        qDebug() << "Try Delete " << tmp.c_str();
-        ////////////////////////////////////////
         Lib_Manager.list[Lib_Manager.current_edit_ind].find_and_delet(tmp);
-        // qDebug() << Lib_Manager.list.size();
-        ////////////////////////////////////////
         ui->ParapListWidget->takeItem(selected);
-
-        //        QString qtmp = ui->WordListWidget->item(selected)->text();
-        //        std::string tmp = qtmp.toStdString();
-        //        qDebug() << "EInd = " << Lib_Manager.current_edit_ind;
-        //        qDebug() << "Try Delete " << tmp.c_str();
-        //        ////////////////////////////////////////
-        //        Lib_Manager.list[Lib_Manager.current_edit_ind].find_and_delet(tmp);
-        //        // qDebug() << Lib_Manager.list.size();
-        //        ////////////////////////////////////////
-        //        ui->ParapListWidget->takeItem(selected);
     }
     else
     {
@@ -226,12 +168,9 @@ void LibManageWindow::on_EditParapButton_clicked()
         int selected = ui->ParapListWidget->currentRow();
         if (selected >= 0)
         {
-            qDebug() << (ui->ParapListWidget->item(selected)->text());
-            ///////////////////////////////////
             Lib_Manager.list[Lib_Manager.current_edit_ind].find_and_delet((ui->ParapListWidget->item(selected)->text()).toStdString());
             Paraphrase tmp(Paraphrase::WordCharacteristic(ui->CharComboBox->currentIndex()), (ui->ParapLineEdit->text()).toStdString());
             Lib_Manager.list[Lib_Manager.current_edit_ind].add_paraphrase(tmp);
-            ///////////////////////////////////
             QString input_text;
             input_text = ui->CharComboBox->currentText() + " " + ui->ParapLineEdit->text();
             ui->ParapListWidget->insertItem(selected, input_text);
@@ -247,8 +186,6 @@ void LibManageWindow::on_EditParapButton_clicked()
         }
     }
 }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void LibManageWindow::on_SaveFileButton_clicked()
 {

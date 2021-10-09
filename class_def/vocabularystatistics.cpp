@@ -10,8 +10,6 @@ VocabularyStatistic::~VocabularyStatistic()
 {
 }
 
-/////////////////////////////////////////////////
-
 VocabularyCounter::VocabularyCounter()
 {
 }
@@ -73,7 +71,7 @@ bool VocabularyCounter::generate(std::string filename)
     char tmp[16];
     for (auto it = data_map.begin(); it != data_map.end(); ++it)
     {
-        sprintf(tmp,"%2.2lf%%",(it->second.count_correct)*100.0/(it->second.count_total));
+        sprintf(tmp, "%2.2lf%%", (it->second.count_correct) * 100.0 / (it->second.count_total));
         std::string tmp_s(tmp);
         file << it->first << "\t\t" << it->second.count_total << "\t" << tmp_s << std::endl;
     }

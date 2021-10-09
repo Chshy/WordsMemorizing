@@ -13,8 +13,6 @@ UserData::~UserData()
 {
 }
 
-//////////
-
 std::string UserData::get_signin_display_str()
 {
     char tmp[16];
@@ -47,8 +45,6 @@ std::string UserData::get_accuracy_display_str()
     }
 }
 
-//////////
-
 void UserData::update_statistics(bool ans_is_correct)
 {
     ans_total++;
@@ -60,16 +56,13 @@ void UserData::update_statistics(bool ans_is_correct)
     else
     {
         total_score -= 10;
-    }    
+    }
 }
-
-//////////
 
 void UserData::update_login_date()
 {
     time_t timestamp = time(NULL);
-    // if (last_login_date != timestamp)
-    if (1)
+    if (last_login_date != timestamp)
     {
         signin_total++;                               //登录天数+1
         last_login_date = timestamp / (60 * 60 * 24); //获取天数
@@ -84,8 +77,6 @@ bool UserData::today_first_login()
     int day = timestamp / (60 * 60 * 24); //获取天数
     return day != last_login_date;
 }
-
-///////////////////////////////////////
 
 User::User()
 {

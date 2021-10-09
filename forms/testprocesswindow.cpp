@@ -1,7 +1,6 @@
 #include "testprocesswindow.h"
 #include "ui_testprocesswindow.h"
 #include <QMessageBox>
-#include <QDebug>
 
 TestProcessWindow::TestProcessWindow(QWidget *parent) : QMainWindow(parent),
                                                         ui(new Ui::TestProcessWindow)
@@ -32,12 +31,10 @@ void TestProcessWindow::setPATH(bool no_notebook_input, QString Lib_QPATH_input,
     {
         Note_QPATH = Note_QPATH_input;
         ui->NoteDisplayLineEdit->setText(Note_QPATH);
-        // ui->AddToNoteButton->setDisabled(false);
     }
     else
     {
         ui->NoteDisplayLineEdit->setText("未选择错题本");
-        // ui->AddToNoteButton->setDisabled(true);
     }
 
     //进度界面初始化
@@ -52,14 +49,10 @@ void TestProcessWindow::setPATH(bool no_notebook_input, QString Lib_QPATH_input,
 
 void TestProcessWindow::DrawQuiz()
 {
-    qDebug() << "StartDrawQuiz";
     ui->NextQuizButton->setDisabled(true);
     ui->AnswerButton->setDisabled(false);
     ui->ReslDisplayEdit->clear();
     ui->AddToNoteButton->setDisabled(true);
-
-    qDebug() << ui->QuizTypeComboBox->currentIndex();
-    qDebug() << ui->QuizTypeComboBox->currentText();
 
     //出题
     quiz = Test_Process.DrawQuiz(QuizType(ui->QuizTypeComboBox->currentIndex()));
@@ -163,13 +156,12 @@ void TestProcessWindow::on_AnswerButton_clicked()
     }
 
     //统计信息
-    Vocabulary_Counter.update_statistics(quiz.voc.word,ans_correct);
+    Vocabulary_Counter.update_statistics(quiz.voc.word, ans_correct);
     Vocabulary_Counter.savefile(EXE_PATH + "\\report\\save.dat");
 
     //更新数据
     Test_Process.DataUpdate(ans_correct); //本次数据
 
-    // ui->LibProgressBar->setValue(Test_Process.get_ans_total());                                    //进度条
     //进度条
     switch (Test_Process.get_quiz_range())
     {
@@ -193,23 +185,6 @@ void TestProcessWindow::on_AnswerButton_clicked()
     Main_Window_Ptr->refresh_user_status();
 
     ui->AddToNoteButton->setDisabled(no_notebook);
-
-    // if (Test_Process.get_ans_total() >= Test_Process.get_quiz_total())
-    // { //如果题目回答完了
-    //     QMessageBox msgBox(QMessageBox::Information, "提示", "已完成词库内所有单词，是否返回主界面？");
-    //     msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
-    //     msgBox.setButtonText(QMessageBox::Ok, QString("确 定"));
-    //     msgBox.setButtonText(QMessageBox::Cancel, QString("取 消"));
-    //     msgBox.setDefaultButton(QMessageBox::Ok);
-    //     if (msgBox.exec() == QMessageBox::Ok)
-    //     {
-    //         this->close();
-    //     }
-    // }
-    // else
-    // {
-    //     ui->NextQuizButton->setDisabled(false);
-    // }
 
     //判断是否背诵完成
     switch (Test_Process.get_quiz_range())

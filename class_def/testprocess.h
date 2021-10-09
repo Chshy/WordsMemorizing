@@ -44,7 +44,7 @@ struct QuizUnit //测试中每一道题目的结构体
     int voc_index;         //存储这个单词在TestProcess的list里的位置
 };
 
-class TestProcess //测试进程的主结构体
+class TestProcess //测试进程类
 {
 private:
     QuizRange range;

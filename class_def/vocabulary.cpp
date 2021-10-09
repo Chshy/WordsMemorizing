@@ -1,16 +1,12 @@
 #include "vocabulary.h"
 
 const std::string VOC_PATH = "\\config";
-// const std::string USER_FILENAME = "user.dat";
-
-//////////////////////////////////////////////////////////////////////////////////////////////
 
 Paraphrase::Paraphrase()
 {
-
 }
 
-Paraphrase::Paraphrase(WordCharacteristic input_char,std::string input_trans)
+Paraphrase::Paraphrase(WordCharacteristic input_char, std::string input_trans)
 {
     characteristic = input_char;
     translation = input_trans;
@@ -19,8 +15,6 @@ Paraphrase::Paraphrase(WordCharacteristic input_char,std::string input_trans)
 Paraphrase::~Paraphrase()
 {
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////
 
 std::string Paraphrase::get_display_str()
 {
@@ -63,8 +57,6 @@ std::string Paraphrase::get_display_str()
     return char_str + " " + translation;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-
 Vocabulary::Vocabulary()
 {
 }
@@ -72,7 +64,7 @@ Vocabulary::Vocabulary()
 // 词汇构造（初始化英文）
 Vocabulary::Vocabulary(std::string input)
 {
-   this->word = input;
+    this->word = input;
 }
 
 Vocabulary::~Vocabulary()
@@ -84,15 +76,6 @@ void Vocabulary::add_paraphrase(Paraphrase input)
 {
     this->paraphrases.push_back(input);
 }
-
-//词汇添加解释
-// void Vocabulary::add_paraphrase(Paraphrase::WordCharacteristic input_char, std::string input_trans)
-// {
-//     Paraphrase input;
-//     input.characteristic = input_char;
-//     input.translation = input_trans;
-//     this->paraphrases.push_back(input);
-// }
 
 bool Vocabulary::delet(std::vector<Paraphrase>::size_type index)
 {
@@ -126,7 +109,7 @@ bool Vocabulary::find_and_delet(std::string input)
     std::string cut_str = input.substr(6);
 
     int ind = find(cut_str);
-    if(ind == -1)
+    if (ind == -1)
     {
         return false;
     }
@@ -136,34 +119,3 @@ bool Vocabulary::find_and_delet(std::string input)
         return true;
     }
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-// VocabularyList::VocabularyList(/* args */)
-// {
-// }
-
-// VocabularyList::~VocabularyList()
-// {
-// }
-
-// //添加词汇
-// void VocabularyList::add(Vocabulary input)
-// {
-//     this->list.push_back(input);
-// }
-
-// //下标删除
-// bool VocabularyList::delet(std::vector<Vocabulary>::size_type index)
-// {
-//     if(index >= this->list.size())
-//     {
-//         return false;
-//     }
-//     else
-//     {
-//         this->list[index] = this->list.back();
-//         this->list.pop_back();
-//         return true;
-//     }
-// }

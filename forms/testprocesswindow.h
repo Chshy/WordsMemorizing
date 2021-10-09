@@ -7,8 +7,9 @@
 #include "class_def/testprocess.h"
 #include "global_variate.h"
 
-namespace Ui {
-class TestProcessWindow;
+namespace Ui
+{
+    class TestProcessWindow;
 }
 
 class TestProcessWindow : public QMainWindow
@@ -25,7 +26,6 @@ public:
     QString Note_QPATH;
 
     MainWindow *Main_Window_Ptr;
-
 
     void setPATH(bool no_notebook_input, QString Lib_QPATH_input, QString Note_QPATH_input);
     void DrawQuiz();

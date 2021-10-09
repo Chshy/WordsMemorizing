@@ -25,7 +25,6 @@ void RegisterWindow::on_CancelButton_clicked()
 void RegisterWindow::on_RegisterButton_clicked()
 {
 
-
     //读取文本框内容
     QString Qusername = ui->UsernameEdit->text();
     QString Qpassword = ui->PasswordEdit->text();
@@ -35,10 +34,9 @@ void RegisterWindow::on_RegisterButton_clicked()
     std::string password = Qpassword.toStdString();
     std::string passwordconfirm = Qpasswordconfirm.toStdString();
 
-
     //输入合法性检查
 
-    if(password.compare(passwordconfirm) != 0)
+    if (password.compare(passwordconfirm) != 0)
     {
         QMessageBox msgBox(QMessageBox::Warning, "提示", "密码与确认密码不一致！");
         msgBox.setStandardButtons(QMessageBox::Ok);
@@ -47,8 +45,6 @@ void RegisterWindow::on_RegisterButton_clicked()
         msgBox.exec();
         return;
     }
-
-
 
     //创建一个User对象并设置
     User newuser;
